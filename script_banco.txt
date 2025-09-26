@@ -1,0 +1,19 @@
+create database Sistema_Chamados
+
+use Sistema_Chamados
+
+
+Create table chamados(
+   	Id  int not null primary key,
+   		dataAbertura datetime not null,
+              descricaoProblema varchar(max) not null,
+   		descricaoAtendimento  varchar(max) null,
+   		dataAtendimento datetime null,
+   		situacao int not null,
+   		usuarioId int null
+)
+
+Create table usuarios(
+   	Id  int not null primary key,   		
+   		nome  varchar(max) not null
+)
