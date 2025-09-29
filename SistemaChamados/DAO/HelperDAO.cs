@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace SistemaChamados.DAO
 {
@@ -17,4 +18,23 @@ namespace SistemaChamados.DAO
             }
 
         }
+
+        public static DataTable ExecutaSelect(string sql, SqlParameter[] parametros)
+        {
+            using (SqlConnection conexao = ConexaoDB.GetConexao())
+            {
+                using (SqlDataAdapter adapter = new SqlDataAdapter(sql, conexao))
+                {
+                    if (parametros != null && adapter.SelectCommand != null)
+                        adapter.SelectCommand.Parameters.AddRange(parametros);
+
+                    DataTable tabela = new DataTable();
+                    adapter.Fill(tabela);
+
+                    conexao.Close();
+                    return tabela;
+                }
+            }
+        }
     }
+}
