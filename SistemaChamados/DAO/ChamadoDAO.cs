@@ -1,5 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
 using SistemaChamados.Models;
+using System;
+using System.Collections.Generic;
+using System.Data;
 
 namespace SistemaChamados.DAO
 {
@@ -16,6 +19,26 @@ namespace SistemaChamados.DAO
             parametros[5] = new SqlParameter("usuarioId", chamado.usuarioId);
             return parametros;
         }
+        public List<ChamadosViewModel> Listar()
+        {
+            List<ChamadosViewModel> lista = new List<ChamadosViewModel>();
+            string sql = "select * from chamados";
+            DataTable tabela = HelperDAO.ExecutaSelect(sql, null);
+
+            foreach (DataRow registro in tabela.Rows)
+                lista.Add(new ChamadosViewModel
+                {
+                    Id = int.Parse(registro["id"].ToString()),
+                    dataAbertura = DateTime.Parse(registro["dataAbertura"].ToString()),
+                    descricaoAtendimento = registro["descricaoAtendimento"].ToString(),
+                    dataAtendimento = DateTime.Parse(registro["dataAtendimento"].ToString()),
+                    situacao = int.Parse(registro["situacao"].ToString()),
+                    usuarioId = int.Parse(registro["usuarioId"].ToString())
+                });
+
+            return lista;
+        }
+
         /// <summary>
         /// Método para inserir um aluno no BD
         /// </summary>
