@@ -10,10 +10,16 @@ namespace SistemaChamados.Controllers
         private UsuarioDAO usuarioDao = new UsuarioDAO();
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Usuario()
         {
             var usuarios = usuarioDao.Listar();
             return View(usuarios);
+        }
+
+        [HttpGet]
+        public IActionResult Criar()
+        {
+            return View();
         }
 
         [HttpPost]
@@ -21,11 +27,10 @@ namespace SistemaChamados.Controllers
         {
             if (ModelState.IsValid)
             {
-                usuarioDao.Inserir(usuario);
-                return RedirectToAction("Index");
+                usuarioDao.Inserir(usuario); 
+                return RedirectToAction("Usuario");  
             }
-
-            return View(usuario);
+            return View(usuario);  
         }
 
         [HttpPost]
@@ -55,7 +60,7 @@ namespace SistemaChamados.Controllers
         public IActionResult ConfirmaDelete(int id)
         {
             usuarioDao.Excluir(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("Usuario");
         }
     }
 }
