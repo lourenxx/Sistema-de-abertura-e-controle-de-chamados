@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -7,6 +8,7 @@ namespace SistemaChamados.Models
     public class ChamadosViewModel
     {
         public int Id { get; set; }
+        public List<SelectListItem> Usuarios { get; set; }
 
         [Required(ErrorMessage = "A data de abertura é obrigatória.")]
         public DateTime? dataAbertura { get; set; }

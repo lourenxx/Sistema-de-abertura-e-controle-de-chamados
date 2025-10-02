@@ -51,9 +51,9 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="usuarioId" class="control-label">ID do Usuário</label>
-        <input asp-for="usuarioId" class="form-control" type="number" />
-        <span asp-validation-for="usuarioId" class="text-danger"></span>
+        @Html.LabelFor(m => m.usuarioId, "Usuário")
+        @Html.DropDownListFor(m => m.usuarioId, Model.Usuarios, "Selecione um Usuário", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.usuarioId)
     </div>
 
     <button type="submit" class="btn btn-primary">Salvar Alterações</button>

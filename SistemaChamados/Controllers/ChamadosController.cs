@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using SistemaChamados.DAO;
 using SistemaChamados.Models;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ namespace SistemaChamados.Controllers
     public class ChamadosController : Controller
     {
         private ChamadoDAO chamadoDao = new ChamadoDAO();
+        private UsuarioDAO usuarioDao = new UsuarioDAO();
 
         [HttpGet]
         public IActionResult Index()
@@ -26,7 +28,20 @@ namespace SistemaChamados.Controllers
         [HttpGet]
         public IActionResult Criar()
         {
-            return View();
+            // Buscar a lista de usuários cadastrados
+            var usuarios = usuarioDao.Listar();  // Chama o DAO de Usuário para obter a lista
+
+            // Criar o modelo ChamadosViewModel e incluir a lista de usuários para o combo
+            var model = new ChamadosViewModel
+            {
+                Usuarios = usuarios.Select(u => new SelectListItem
+                {
+                    Value = u.Id.ToString(),
+                    Text = u.Nome
+                }).ToList()
+            };
+
+            return View(model);
         }
 
         [HttpPost]
