@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SistemaChamados.DAO;
 using SistemaChamados.Models;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SistemaChamados.Controllers
@@ -12,8 +13,14 @@ namespace SistemaChamados.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var chamados = chamadoDao.Listar();
-            return View(chamados);
+            List<ChamadosViewModel> chamadosViewModel = chamadoDao.Listar();
+
+            if(chamadosViewModel == null)
+            {
+                chamadosViewModel = new List<ChamadosViewModel>();
+            }
+
+            return View(chamadosViewModel);
         }
 
         [HttpGet]

@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using System.Data.SqlClient;
 using SistemaChamados.Models;
 using System;
 using System.Collections.Generic;
@@ -49,8 +49,8 @@ namespace SistemaChamados.DAO
         public void Inserir(ChamadosViewModel chamado)
         {
             string sql =
-            "insert into chamados(dataAbertura, descricaoAtendimento, dataAtendimento, situacao, usuarioId)" +
-            "values (@dataAbertura, @descricaoAtendimento, @dataAtendimento, @situacao, @usuarioId)";
+            "insert into chamados(dataAbertura, descricaoAtendimento, dataAtendimento, situacao)" +
+            "values (@dataAbertura, @descricaoAtendimento, @dataAtendimento, @situacao)";
             HelperDAO.ExecutaSQL(sql, CriaParametros(chamado, true));
         }
         /// <summary>

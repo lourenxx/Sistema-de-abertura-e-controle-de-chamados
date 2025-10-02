@@ -1,7 +1,7 @@
-﻿using Microsoft.Data.SqlClient;
-using SistemaChamados.Models;
+﻿using SistemaChamados.Models;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace SistemaChamados.DAO
 {

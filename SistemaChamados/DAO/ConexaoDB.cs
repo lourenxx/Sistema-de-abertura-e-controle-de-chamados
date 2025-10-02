@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using System.Data.SqlClient;
 
 namespace SistemaChamados.DAO
 {
@@ -6,7 +6,7 @@ namespace SistemaChamados.DAO
     {
         public static SqlConnection GetConexao()
         {
-            string strCon = "Data Source=LOCALHOST,1433; Database=Sistema_Chamados; user id=sa; password=SqlDockerAdmin@";
+            string strCon = "Data Source=LOCALHOST,1433; Initial Catalog=Sistema_Chamados; user id=sa; password=SqlDockerAdmin@";
             SqlConnection conexao = new SqlConnection(strCon);
             conexao.Open();
             return conexao;
