@@ -3,17 +3,15 @@ create database Sistema_Chamados
 use Sistema_Chamados
 
 
-Create table chamados(
-   	Id  int not null primary key,
-   		dataAbertura datetime not null,
-              descricaoProblema varchar(max) not null,
-   		descricaoAtendimento  varchar(max) null,
-   		dataAtendimento datetime null,
-   		situacao int not null,
-   		usuarioId int null
-)
+CREATE TABLE [dbo].[chamados](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[dataAbertura] [datetime] NOT NULL,
+	[descricaoProblema] [varchar](max) NOT NULL,
+	[descricaoAtendimento] [varchar](max) NULL,
+	[dataAtendimento] [datetime] NULL,
+	[situacao] [int] NOT NULL,
+	[usuarioId] [int] NULL,
 
-Create table usuarios(
-   	Id  int not null primary key,   		
-   		nome  varchar(max) not null
-)
+CREATE TABLE [dbo].[usuarios](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[nome] [varchar](max) NOT NULL,
