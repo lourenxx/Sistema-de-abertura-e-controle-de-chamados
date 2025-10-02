@@ -1,8 +1,51 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<SistemaChamados.Models.ChamadosViewModel>
+
+@{
+    ViewData["Title"] = "Chamados";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h2>Chamados</h2>
+
+<p>
+    <a asp-action="Criar" class="btn btn-primary">Novo Chamado</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Data Abertura</th>
+            <th>Descrição</th>
+            <th>Data Atendimento</th>
+            <th>Situação</th>
+            <th>Usuário</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var chamado in Model)
+            {
+                <tr>
+                    <td>@chamado.Id</td>
+                    <td>@chamado.dataAbertura?.ToString("dd/MM/yyyy")</td>
+                    <td>@chamado.descricaoAtendimento</td>
+                    <td>@chamado.dataAtendimento?.ToString("dd/MM/yyyy")</td>
+                    <td>@chamado.situacao</td>
+                    <td>@chamado.usuarioId</td>
+                    <td>
+                        <form asp-action="Editar" method="post" style="display:inline">
+                            <input type="hidden" name="id" value="@chamado.Id" />
+                            <button type="submit" class="btn btn-warning btn-sm">Editar</button>
+                        </form>
+                        <form asp-action="Deletar" method="post" style="display:inline">
+                            <input type="hidden" name="id" value="@chamado.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">Deletar</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
