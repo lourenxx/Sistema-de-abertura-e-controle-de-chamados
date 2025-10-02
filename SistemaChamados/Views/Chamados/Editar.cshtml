@@ -21,6 +21,13 @@
     </div>
 
     <div class="form-group">
+        <label asp-for="descricaoProblema" class="control-label">Descrição do Problema</label>
+        <textarea asp-for="descricaoProblema" class="form-control" rows="4"></textarea>
+        <span asp-validation-for="descricaoProblema" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
         <label asp-for="descricaoAtendimento" class="control-label">Descrição do Atendimento</label>
         <textarea asp-for="descricaoAtendimento" class="form-control" rows="4"></textarea>
         <span asp-validation-for="descricaoAtendimento" class="text-danger"></span>

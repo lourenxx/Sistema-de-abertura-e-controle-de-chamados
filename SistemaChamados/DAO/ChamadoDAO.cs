@@ -16,6 +16,7 @@ namespace SistemaChamados.DAO
                 parametros.Add(new SqlParameter("id", chamado.Id));
             }
             parametros.Add(new SqlParameter("dataAbertura", chamado.dataAbertura));
+            parametros.Add(new SqlParameter("descricaoProblema", chamado.descricaoProblema));
             parametros.Add(new SqlParameter("descricaoAtendimento", chamado.descricaoAtendimento));
             parametros.Add(new SqlParameter("dataAtendimento", chamado.dataAtendimento));
             parametros.Add(new SqlParameter("situacao", chamado.situacao));
@@ -33,6 +34,7 @@ namespace SistemaChamados.DAO
                 {
                     Id = int.Parse(registro["id"].ToString()),
                     dataAbertura = DateTime.Parse(registro["dataAbertura"].ToString()),
+                    descricaoProblema = registro["descricaoProblema"].ToString(),
                     descricaoAtendimento = registro["descricaoAtendimento"].ToString(),
                     dataAtendimento = DateTime.Parse(registro["dataAtendimento"].ToString()),
                     situacao = int.Parse(registro["situacao"].ToString()),
@@ -49,8 +51,8 @@ namespace SistemaChamados.DAO
         public void Inserir(ChamadosViewModel chamado)
         {
             string sql =
-            "insert into chamados(dataAbertura, descricaoAtendimento, dataAtendimento, situacao)" +
-            "values (@dataAbertura, @descricaoAtendimento, @dataAtendimento, @situacao)";
+            "insert into chamados(dataAbertura, descricaoProblema, descricaoAtendimento, dataAtendimento, situacao, usuarioId)" +
+            "values (@dataAbertura, @descricaoProblema, @descricaoAtendimento, @dataAtendimento, @situacao, @usuarioId)";
             HelperDAO.ExecutaSQL(sql, CriaParametros(chamado, true));
         }
         /// <summary>
