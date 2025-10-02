@@ -1,0 +1,69 @@
+@model List<SistemaChamados.Models.ChamadosViewModel>
+
+
+@{
+    ViewData["Title"] = "Chamados";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Data de Abertura</th>
+            <th>Descrição do Problema</th>
+            <th>Descrição do Atendimento</th>
+            <th>Data de Atendimento</th>
+            <th>Situação</th>
+            <th>Usuário ID</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var chamado in Model)
+            {
+                <tr>
+                    <td>@chamado.Id</td>
+                    <td>@(chamado.dataAbertura?.ToString("dd/MM/yyyy") ?? "N/A")</td>
+                    <td>@chamado.descricaoProblema</td>
+                    <td>@chamado.descricaoAtendimento</td>
+                    <td>@(chamado.dataAtendimento?.ToString("dd/MM/yyyy") ?? "N/A")</td>
+                    <td>
+                        @if (chamado.situacao == 1)
+                        {
+                            <span class="badge badge-warning">Aberto</span>
+                        }
+                        else if (chamado.situacao == 2)
+                        {
+                            <span class="badge badge-info">Em Atendimento</span>
+                        }
+                        else if (chamado.situacao == 3)
+                        {
+                            <span class="badge badge-success">Fechado</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-secondary">Desconhecido</span>
+                        }
+                    </td>
+                    <td>@chamado.usuarioId</td>
+                    <td>
+                        <a asp-action="Editar" asp-route-id="@chamado.Id" class="btn btn-warning btn-sm">Editar</a>
+                        <a asp-action="Deletar" asp-route-id="@chamado.Id" class="btn btn-danger btn-sm">Deletar</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="7" class="text-center">Nenhum chamado encontrado.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Criar", "Chamados")" class="btn btn-success">Cadastrar Novo Chamado</a>

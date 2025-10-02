@@ -1,0 +1,61 @@
+@model SistemaChamados.Models.ChamadosViewModel
+
+@{
+    ViewData["Title"] = "Deletar Chamado";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="alert alert-danger">
+    <h4>Tem certeza que deseja deletar este chamado?</h4>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">ID</dt>
+            <dd class="col-sm-9">@Model.Id</dd>
+
+            <dt class="col-sm-3">Data de Abertura</dt>
+            <dd class="col-sm-9">@(Model.dataAbertura?.ToString("dd/MM/yyyy HH:mm") ?? "N/A")</dd>
+
+            <dt class="col-sm-3">Descrição do Problema</dt>
+            <dd class="col-sm-9">@Model.descricaoProblema</dd>
+
+            <dt class="col-sm-3">Descrição do Atendimento</dt>
+            <dd class="col-sm-9">@Model.descricaoAtendimento</dd>
+
+            <dt class="col-sm-3">Data de Atendimento</dt>
+            <dd class="col-sm-9">@(Model.dataAtendimento?.ToString("dd/MM/yyyy HH:mm") ?? "N/A")</dd>
+
+            <dt class="col-sm-3">Situação</dt>
+            <dd class="col-sm-9">
+                @if (Model.situacao == 1)
+                {
+                    <span class="badge badge-warning">Aberto</span>
+                }
+                else if (Model.situacao == 2)
+                {
+                    <span class="badge badge-info">Em Atendimento</span>
+                }
+                else if (Model.situacao == 3)
+                {
+                    <span class="badge badge-success">Fechado</span>
+                }
+                else
+                {
+                    <span class="badge badge-secondary">Desconhecido</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3">ID do Usuário</dt>
+            <dd class="col-sm-9">@Model.usuarioId</dd>
+        </dl>
+    </div>
+</div>
+
+<form asp-action="Deletar" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
+    <a href="@Url.Action("Index", "Chamados")" class="btn btn-secondary">Cancelar</a>
+</form>

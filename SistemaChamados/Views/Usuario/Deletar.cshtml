@@ -1,0 +1,29 @@
+@model SistemaChamados.Models.UsuarioViewModel
+
+@{
+    ViewData["Title"] = "Deletar Usuário";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="alert alert-danger">
+    <h4>Tem certeza que deseja deletar este usuário?</h4>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">ID</dt>
+            <dd class="col-sm-9">@Model.Id</dd>
+
+            <dt class="col-sm-3">Nome</dt>
+            <dd class="col-sm-9">@Model.Nome</dd>
+        </dl>
+    </div>
+</div>
+
+<form asp-action="Deletar" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
+    <a href="@Url.Action("Usuario", "Usuario")" class="btn btn-secondary">Cancelar</a>
+</form>

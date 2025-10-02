@@ -1,0 +1,32 @@
+﻿@model IEnumerable<SistemaChamados.Models.UsuarioViewModel>
+
+@{
+    ViewData["Title"] = "Usuários";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var usuario in Model)
+            {
+                <tr>
+                    <td>@usuario.Nome</td>
+                    <td>
+                        <a asp-action="Editar" asp-route-id="@usuario.Id" class="btn btn-warning btn-sm">Editar</a>
+                        <a asp-action="Deletar" asp-route-id="@usuario.Id" class="btn btn-danger btn-sm">Deletar</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Criar", "Usuario")" class="btn btn-success">Cadastrar Novo Usuário</a>

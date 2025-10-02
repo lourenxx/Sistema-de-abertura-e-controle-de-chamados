@@ -1,0 +1,20 @@
+﻿@model SistemaChamados.Models.UsuarioViewModel
+
+@{
+    ViewData["Title"] = "Cadastrar Novo Usuário";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Criar" method="post">
+
+    <div class="form-group">
+        <label asp-for="Nome" class="control-label"></label>
+        <input asp-for="Nome" class="form-control" rows="4">
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+</form>
+
+<a href="@Url.Action("Usuario", "Usuario")">Voltar para a lista de usuários</a>
+    
