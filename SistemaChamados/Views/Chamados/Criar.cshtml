@@ -37,9 +37,8 @@
         <label asp-for="situacao" class="control-label">Situação</label>
         <select asp-for="situacao" class="form-control">
             <option value="">Selecione...</option>
-            <option value="1">Aberto</option>
-            <option value="2">Em Atendimento</option>
-            <option value="3">Fechado</option>
+            <option value="1">PENDENTE</option>
+            <option value="2">ATENDIDO</option>
         </select>
         <span asp-validation-for="situacao" class="text-danger"></span>
     </div>

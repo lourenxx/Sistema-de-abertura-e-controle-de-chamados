@@ -6,7 +6,7 @@ namespace SistemaChamados.DAO
     {
         public static SqlConnection GetConexao()
         {
-            string strCon = "Data Source=LOCALHOST,1433; Initial Catalog=Sistema_Chamados; user id=sa; password=123456";
+            string strCon = "Data Source=LOCALHOST; Initial Catalog=Sistema_Chamados; user id=sa; password=123456";
             SqlConnection conexao = new SqlConnection(strCon);
             conexao.Open();
             return conexao;
