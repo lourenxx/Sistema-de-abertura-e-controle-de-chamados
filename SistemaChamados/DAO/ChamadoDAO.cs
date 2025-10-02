@@ -8,16 +8,19 @@ namespace SistemaChamados.DAO
 {
     public class ChamadoDAO
     {
-        private SqlParameter[] CriaParametros(ChamadosViewModel chamado)
+        private SqlParameter[] CriaParametros(ChamadosViewModel chamado, bool isInsert = false)
         {
-            SqlParameter[] parametros = new SqlParameter[6];
-            parametros[0] = new SqlParameter("id", chamado.Id);
-            parametros[1] = new SqlParameter("dataAbertura", chamado.dataAbertura);
-            parametros[2] = new SqlParameter("descricaoAtendimento", chamado.descricaoAtendimento);
-            parametros[3] = new SqlParameter("dataAtendimento", chamado.dataAtendimento);
-            parametros[4] = new SqlParameter("situacao", chamado.situacao);
-            parametros[5] = new SqlParameter("usuarioId", chamado.usuarioId);
-            return parametros;
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            if (!isInsert)
+            {
+                parametros.Add(new SqlParameter("id", chamado.Id));
+            }
+            parametros.Add(new SqlParameter("dataAbertura", chamado.dataAbertura));
+            parametros.Add(new SqlParameter("descricaoAtendimento", chamado.descricaoAtendimento));
+            parametros.Add(new SqlParameter("dataAtendimento", chamado.dataAtendimento));
+            parametros.Add(new SqlParameter("situacao", chamado.situacao));
+            parametros.Add(new SqlParameter("usuarioId", chamado.usuarioId));
+            return parametros.ToArray();
         }
         public List<ChamadosViewModel> Listar()
         {
@@ -40,15 +43,15 @@ namespace SistemaChamados.DAO
         }
 
         /// <summary>
-        /// Método para inserir um aluno no BD
+        /// Método para inserir um chamado no BD
         /// </summary>
-        /// <param name="aluno">objeto aluno com todas os atributos preenchidos</param>
+        /// <param name="chamado">objeto chamado com todas os atributos preenchidos</param>
         public void Inserir(ChamadosViewModel chamado)
         {
             string sql =
-            "insert into chamados(id, dataAbertura, descricaoAtendimento, dataAtendimento, situacao, usuarioId)" +
-            "values ( @id, @dataAbertura, @descricaoAtendimento, @dataAtendimento, @situacao, @usuarioId)";
-            HelperDAO.ExecutaSQL(sql, CriaParametros(chamado));
+            "insert into chamados(dataAbertura, descricaoAtendimento, dataAtendimento, situacao, usuarioId)" +
+            "values (@dataAbertura, @descricaoAtendimento, @dataAtendimento, @situacao, @usuarioId)";
+            HelperDAO.ExecutaSQL(sql, CriaParametros(chamado, true));
         }
         /// <summary>
         /// Altera um aluno no banco de dados

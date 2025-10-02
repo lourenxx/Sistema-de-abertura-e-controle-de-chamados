@@ -33,7 +33,7 @@ namespace SistemaChamados.Controllers
             return View(usuario);  
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Editar(int id)
         {
             var usuario = usuarioDao.Listar().FirstOrDefault(u => u.Id == id);
@@ -45,6 +45,17 @@ namespace SistemaChamados.Controllers
         }
 
         [HttpPost]
+        public IActionResult Editar(UsuarioViewModel usuario)
+        {
+            if (ModelState.IsValid)
+            {
+                usuarioDao.Alterar(usuario);
+                return RedirectToAction("Usuario");
+            }
+            return View(usuario);
+        }
+
+        [HttpGet]
         public IActionResult Deletar(int id)
         {
             var usuario = usuarioDao.Listar()

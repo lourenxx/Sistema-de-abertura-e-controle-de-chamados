@@ -7,12 +7,15 @@ namespace SistemaChamados.DAO
 {
     public class UsuarioDAO
     {
-        private SqlParameter[] CriaParametros(UsuarioViewModel usuario)
+        private SqlParameter[] CriaParametros(UsuarioViewModel usuario, bool isInsert = false)
         {
-            SqlParameter[] parametros = new SqlParameter[6];
-            parametros[0] = new SqlParameter("id", usuario.Id);
-            parametros[1] = new SqlParameter("nome", usuario.Nome);
-            return parametros;
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            if (!isInsert)
+            {
+                parametros.Add(new SqlParameter("id", usuario.Id));
+            }
+            parametros.Add(new SqlParameter("nome", usuario.Nome));
+            return parametros.ToArray();
         }
 
         public List<UsuarioViewModel> Listar()
@@ -31,15 +34,15 @@ namespace SistemaChamados.DAO
             return lista;
         }
         /// <summary>
-        /// Método para inserir um aluno no BD
+        /// Método para inserir um usuário no BD
         /// </summary>
-        /// <param name="aluno">objeto aluno com todas os atributos preenchidos</param>
+        /// <param name="usuario">objeto usuario com todas os atributos preenchidos</param>
         public void Inserir(UsuarioViewModel usuario)
         {
             string sql =
-            "insert into usuarios(id, nome)" +
-            "values ( @id, @nome)";
-            HelperDAO.ExecutaSQL(sql, CriaParametros(usuario));
+            "insert into usuarios(nome)" +
+            "values (@nome)";
+            HelperDAO.ExecutaSQL(sql, CriaParametros(usuario, true));
         }
         /// <summary>
         /// Altera um aluno no banco de dados

@@ -12,6 +12,13 @@ namespace SistemaChamados.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            var chamados = chamadoDao.Listar();
+            return View(chamados);
+        }
+
+        [HttpGet]
+        public IActionResult Criar()
+        {
             return View();
         }
 
@@ -27,27 +34,38 @@ namespace SistemaChamados.Controllers
             return View(chamado);
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Editar(int id)
         {
-            var usuario = chamadoDao.Listar().FirstOrDefault(u => u.Id == id);
-            if (usuario == null)
+            var chamado = chamadoDao.Listar().FirstOrDefault(u => u.Id == id);
+            if (chamado == null)
             {
                 return NotFound();
             }
-            return View(usuario);
+            return View(chamado);
         }
 
         [HttpPost]
+        public IActionResult Editar(ChamadosViewModel chamado)
+        {
+            if (ModelState.IsValid)
+            {
+                chamadoDao.Alterar(chamado);
+                return RedirectToAction("Index");
+            }
+            return View(chamado);
+        }
+
+        [HttpGet]
         public IActionResult Deletar(int id)
         {
-            var usuario = chamadoDao.Listar()
+            var chamado = chamadoDao.Listar()
                                     .Where(u => u.Id == id)
                                     .FirstOrDefault();
-            if (usuario == null)
+            if (chamado == null)
                 return NotFound();
 
-            return View(usuario);
+            return View(chamado);
         }
 
         [HttpPost, ActionName("Deletar")]

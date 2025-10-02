@@ -11,7 +11,10 @@ namespace SistemaChamados.DAO
             {
                 using (SqlCommand comando = new SqlCommand(sql, conexao))
                 {
-                    if (parametros != null)
+                    // comando.Parameters nunca deve ser nulo após a inicialização do SqlCommand
+                    // No entanto, para garantir, a verificação de parametros != null é suficiente.
+                    // O erro anterior pode ter sido causado por 'parametros' ser nulo quando não deveria ser.
+                    if (parametros != null && parametros.Length > 0)
                         comando.Parameters.AddRange(parametros);
                     comando.ExecuteNonQuery();
                 }
@@ -25,7 +28,13 @@ namespace SistemaChamados.DAO
             {
                 using (SqlDataAdapter adapter = new SqlDataAdapter(sql, conexao))
                 {
-                    if (parametros != null && adapter.SelectCommand != null)
+                    // Garante que SelectCommand não seja nulo antes de adicionar parâmetros
+                    if (adapter.SelectCommand == null)
+                    {
+                        adapter.SelectCommand = new SqlCommand(sql, conexao);
+                    }
+
+                    if (parametros != null)
                         adapter.SelectCommand.Parameters.AddRange(parametros);
 
                     DataTable tabela = new DataTable();
